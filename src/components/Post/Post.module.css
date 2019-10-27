@@ -1,0 +1,8 @@
+.Post {
+    max-width: 160px;
+    border-style: solid;
+    border-color: lightgray;
+    display: inline-table;
+    margin: 10px 20px;
+    padding: 0px 30px;
+}
