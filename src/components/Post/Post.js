@@ -1,11 +1,13 @@
 import React from 'react';
-import classes from './Post.module.css';
+import styles from './Post.module.css';
 
 const post = (props) => (
-    <div className={classes.Post}>
-        <h1>{props.title}</h1>
-        <p>{props.author}</p>
-    </div>    
+    <article className={styles.Post} onClick = { props.clicked }>
+        <h1 className = "Title">{ props.title }</h1>
+        <div className="Info">
+            <div className="Author">{ props.author }</div>
+        </div>
+    </article>
 );
 
 export default post; 
