@@ -4,12 +4,15 @@ import Axios from 'axios';
 
 class FullPost extends Component {
     state = {
-        currentPost : null
+        currentPost : null,
+        loading: false
     }   
-    componentDidUpdate() {
-        if (this.props.id) {
-            if (!this.state.currentPost || this.state.currentPost.id !== this.props.id) {
-                Axios.get('https://jsonplaceholder.typicode.com/posts/' + this.props.id)
+    componentDidMount() {
+        console.log(this.props);
+        this.setState({ loading: true });
+        if (this.props.match.params.id) {
+            if (!this.state.currentPost || Number(this.state.currentPost.id) !== this.props.match.params.id) {
+                Axios.get('/posts/' + this.props.match.params.id)
                 .then(response => {
                     this.setState({ currentPost: response.data
                     })  
@@ -18,10 +21,15 @@ class FullPost extends Component {
             
         }
     }
-
+    deleteHandler = () => {
+        if (this.props.match.params.id) {
+            Axios.delete('/posts/' + this.props.match.params.id)
+            .then(response => console.log(response));
+        } 
+    }
     render () {
         let post = null;
-        if (!this.props.id) {
+        if (!this.props.match.params.id) {
             post = <p style = {{ textAlign: 'center' }}>Please select a Post!</p>;
         } else if (!this.state.currentPost) {
             post = <p style = {{ textAlign: 'center' }}>Loading...</p>;
